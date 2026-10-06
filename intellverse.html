@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intellverse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d1a;--s:#111528;--line:#222845;--txt:#e9ebf5;--mut:#8a90ad;--a:#8fa2ff;--b:#e9c98f;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+body{min-height:100vh;background:radial-gradient(900px 420px at 50% -120px,#1a2050,transparent 70%) var(--bg) no-repeat;color:var(--txt);font:15px/1.55 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:auto;padding:0 24px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:26px 0}
+.logo{display:flex;align-items:center;font:400 27px Fraunces,Georgia,serif;letter-spacing:-.01em}
+.logo i{width:20px;height:20px;border:2px solid var(--a);border-radius:50%}
+.logo i+i{border-color:var(--b);margin-left:-9px}
+.logo b{font-weight:400;margin-left:12px}
+.pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:99px;font-size:13px;color:var(--mut)}
+.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mut)}
+.pill.live{color:var(--txt)}.pill.live:before{background:var(--b);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+h1{font:300 clamp(40px,6.4vw,76px)/1.02 Fraunces,Georgia,serif;letter-spacing:-.025em;max-width:11em;margin:34px 0 16px}
+.lede{color:var(--mut);max-width:520px;font-size:16px}
+.grid{display:grid;gap:22px;margin:40px 0 56px;align-items:start}
+@media(min-width:980px){.grid{grid-template-columns:400px 1fr}}
+.card,.stage{background:var(--s);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card{margin-bottom:16px}
+.card h3{font:400 21px Fraunces,Georgia,serif;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.card h3:before{content:"";width:14px;height:14px;border:2px solid var(--c);border-radius:50%}
+.A{--c:var(--a)}.B{--c:var(--b)}
+label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:12px}
+input,select,textarea{display:block;width:100%;margin-top:5px;padding:9px 11px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--txt);font:inherit;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,.btn:focus-visible{outline:2px solid var(--c,var(--a));outline-offset:1px}
+select option{background:var(--s)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card:not(.cu) .u{display:none}
+.chk{display:flex;align-items:center;gap:8px}.chk input{width:auto;margin:0}
+.act{display:flex;gap:10px;margin-top:4px}
+.btn{flex:1;border:1px solid transparent;border-radius:10px;padding:12px 18px;font:600 14px Geist,system-ui,sans-serif;cursor:pointer;background:var(--txt);color:var(--bg);transition:opacity .15s}
+.btn:hover{opacity:.88}
+.ghost{background:none;color:var(--txt);border-color:var(--line)}
+.sm{flex:none;padding:7px 14px;font-size:13px}
+.fine{font-size:12px;color:var(--mut);margin-top:12px}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sh h2{font:400 24px Fraunces,Georgia,serif}
+#cnt{color:var(--mut);font-size:13px;margin-right:12px}
+.feed{display:flex;flex-direction:column;align-items:flex-start;gap:14px;height:min(74vh,760px);min-height:380px;overflow-y:auto;padding:4px 8px 4px 0;background:linear-gradient(var(--line),var(--line)) 50% 0/1px 100% no-repeat}
+.empty{margin:auto;max-width:340px;text-align:center;color:var(--mut);background:var(--s);padding:6px}
+.msg{display:flex;gap:11px;max-width:80%;animation:in .35s ease}
+.msg.B{align-self:flex-end;flex-direction:row-reverse}
+@keyframes in{from{opacity:0}}
+.av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:500 16px Fraunces,Georgia,serif;color:var(--bg);background:var(--c)}
+.bd{min-width:0;background:var(--s);border:1px solid var(--c);border-radius:4px 14px 14px 14px;padding:11px 15px}
+.msg.B .bd{border-radius:14px 4px 14px 14px}
+.meta{font-size:12px;color:var(--mut);margin-bottom:3px}.meta b{color:var(--c);font-weight:600;margin-right:8px}
+.bd p{white-space:pre-wrap;overflow-wrap:anywhere}
+.sys{align-self:center;max-width:90%;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 18px;font:italic 300 19px/1.4 Fraunces,Georgia,serif}
+.sys.err{font:14px/1.5 Geist,system-ui,sans-serif;color:#ffb4b4;border-color:#6b2f3a}
+.dots span{display:inline-block;width:6px;height:6px;margin-right:5px;border-radius:50%;background:var(--c);animation:pulse 1.1s infinite}
+.dots span:nth-child(2){animation-delay:.18s}.dots span:nth-child(3){animation-delay:.36s}
+@media(prefers-reduced-motion:reduce){*,:before{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="logo"><i></i><i></i><b>Intellverse</b></div><span class="pill" id="st"><span>Idle</span></span></header>
+<h1>Two minds, one conversation.</h1>
+<p class="lede">Connect any two AI models with your own API keys, give them a topic, and read what they say to each other as it happens.</p>
+<main class="grid">
+<aside>
+<div id="cards"></div>
+<div class="card">
+<h3 style="--c:var(--txt)">Conversation</h3>
+<label>Opening topic<textarea id="topic" rows="3">What will humanity's relationship with AI look like in fifty years?</textarea></label>
+<div class="row"><label>Turns<input id="turns" type="number" min="2" max="100" value="8"></label><label>Pause between replies (s)<input id="delay" type="number" min="0" max="30" value="1"></label></div>
+<label class="chk"><input id="rem" type="checkbox">Remember my keys on this device</label>
+<div class="act"><button class="btn" id="go">Start conversation</button><button class="btn ghost" id="stop" hidden>Stop</button></div>
+<p class="fine">Keys go straight from your browser to the provider you choose. Nothing passes through a server of ours.</p>
+</div>
+</aside>
+<section class="stage">
+<div class="sh"><h2>Live conversation</h2><div><span id="cnt"></span><button class="btn ghost sm" id="exp">Export transcript</button></div></div>
+<div class="feed" id="feed"><div class="empty">Add two API keys, set a topic and press Start conversation. Replies appear here as they arrive.</div></div>
+</section>
+</main>
+</div>
+<script>
+const $=s=>document.querySelector(s),el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const PN={openai:'OpenAI',anthropic:'Anthropic (Claude)',gemini:'Google Gemini',custom:'OpenAI-compatible'};
+const MD={openai:'gpt-4o-mini',anthropic:'claude-sonnet-5-5',gemini:'gemini-2.5-flash',custom:'llama-3.3-70b-versatile'};
+const DEF={A:{n:'Nova',p:'openai',s:'A curious, optimistic futurist who loves bold ideas.'},B:{n:'Sage',p:'anthropic',s:'A thoughtful skeptic who asks sharp questions and offers grounded counterpoints.'}};
+const F={n:1,p:1,m:1,u:1,k:1,s:1},LS='intellverse.v1',feed=$('#feed');
+$('#cards').innerHTML=['A','B'].map(k=>`<div class="card ${k}" id="c${k}"><h3>Agent ${k}</h3>
+<div class="row"><label>Name<input id="${k}n" value="${DEF[k].n}"></label><label>Provider<select id="${k}p">${Object.entries(PN).map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select></label></div>
+<label>Model<input id="${k}m" spellcheck="false"></label>
+<label class="u">Base URL<input id="${k}u" placeholder="https://api.groq.com/openai/v1" spellcheck="false"></label>
+<label>API key<input id="${k}k" type="password" autocomplete="off" placeholder="Paste your API key"></label>
+<label>Persona<textarea id="${k}s" rows="2">${DEF[k].s}</textarea></label></div>`).join('');
+const sync=k=>$('#c'+k).classList.toggle('cu',$('#'+k+'p').value==='custom');
+for(const k of'AB'){const p=$('#'+k+'p');p.value=DEF[k].p;$('#'+k+'m').value=MD[p.value];p.onchange=()=>{$('#'+k+'m').value=MD[p.value];sync(k)};sync(k)}
+try{const d=JSON.parse(localStorage.getItem(LS)||'null');if(d){$('#rem').checked=true;for(const k of'AB')for(const f in F)if(d[k]&&d[k][f]!=null)$('#'+k+f).value=d[k][f];['topic','turns','delay'].forEach(i=>d[i]&&($('#'+i).value=d[i]));sync('A');sync('B')}}catch{}
+const save=()=>{try{if(!$('#rem').checked)return localStorage.removeItem(LS);const d={topic:$('#topic').value,turns:$('#turns').value,delay:$('#delay').value};for(const k of'AB'){d[k]={};for(const f in F)d[k][f]=$('#'+k+f).value}localStorage.setItem(LS,JSON.stringify(d))}catch{}};
+$('#rem').onchange=save;
+const cfg=k=>({n:$('#'+k+'n').value.trim()||'Agent '+k,p:$('#'+k+'p').value,m:$('#'+k+'m').value.trim(),u:$('#'+k+'u').value.trim().replace(/\/+$/,''),k:$('#'+k+'k').value.trim(),s:$('#'+k+'s').value.trim()});
+
+async function ask(x,system,msgs){
+ const h={'content-type':'application/json'};let url,body,pick;
+ if(x.p==='anthropic'){url='https://api.anthropic.com/v1/messages';Object.assign(h,{'x-api-key':x.k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'});body={model:x.m,max_tokens:700,system,messages:msgs.map(m=>({role:m.r,content:m.t}))};pick=j=>j.content.map(c=>c.text||'').join('')}
+ else if(x.p==='gemini'){url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(x.m)}:generateContent?key=${encodeURIComponent(x.k)}`;body={systemInstruction:{parts:[{text:system}]},contents:msgs.map(m=>({role:m.r==='assistant'?'model':'user',parts:[{text:m.t}]}))};pick=j=>j.candidates[0].content.parts.map(p=>p.text||'').join('')}
+ else{url=(x.p==='openai'?'https://api.openai.com/v1':x.u)+'/chat/completions';if(x.k)h.authorization='Bearer '+x.k;body={model:x.m,messages:[{role:'system',content:system},...msgs.map(m=>({role:m.r,content:m.t}))]};pick=j=>j.choices[0].message.content}
+ let r;try{r=await fetch(url,{method:'POST',headers:h,body:JSON.stringify(body)})}catch(e){throw new Error('Could not reach '+(url.split('/')[2]||url)+' ('+e.message+'). Check your API key, model name and connection. If you are viewing this inside a chat preview, download the file and open it in your browser, because previews block outside requests.')}
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error((j.error&&(j.error.message||JSON.stringify(j.error)))||r.statusText||'Request failed ('+r.status+')');
+ try{return pick(j)}catch{throw new Error(PN[x.p]+' returned a reply Intellverse could not read. Check the model name.')}
+}
+
+let tok=0,log=[],topic='';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const setSt=(t,live)=>{$('#st').className='pill'+(live?' live':'');$('#st span').textContent=t};
+const down=()=>feed.scrollTop=feed.scrollHeight;
+const note=(t,err)=>{feed.append(el('div','sys'+(err?' err':''),t));down()};
+function say(k,x,text){const m=el('div','msg '+k),b=el('div','bd'),meta=el('div','meta');meta.append(el('b',0,x.n),el('span',0,x.m));b.append(meta,el('p',0,text));m.append(el('div','av',x.n[0].toUpperCase()),b);feed.append(m);down();return m}
+function think(k,x){const m=say(k,x,''),p=m.querySelector('p');m.classList.add('typ');p.className='dots';p.innerHTML='<span></span><span></span><span></span>';return m}
+function hist(k){const out=[],push=(r,t)=>{const l=out[out.length-1];l&&l.r===r?l.t+='\n\n'+t:out.push({r,t})};push('user','Topic: '+topic);log.forEach(m=>m.k===k?push('assistant',m.t):push('user',m.n+': '+m.t));return out}
+const fail=t=>{feed.innerHTML='';note(t,1);setSt('Needs setup')};
+
+async function start(){
+ const c={A:cfg('A'),B:cfg('B')},n=Math.min(100,Math.max(2,+$('#turns').value||8)),d=Math.max(0,+$('#delay').value||0)*1000;
+ for(const k of'AB'){const x=c[k];
+  if(x.p!=='custom'&&!x.k)return fail(`Agent ${k} needs an API key. Paste one into its API key field.`);
+  if(!x.m)return fail(`Agent ${k} needs a model name, for example ${MD[x.p]}.`);
+  if(x.p==='custom'&&!x.u)return fail(`Agent ${k} needs a base URL, for example https://api.groq.com/openai/v1.`)}
+ topic=$('#topic').value.trim()||'Introduce yourselves, then find something fascinating to discuss.';
+ save();log=[];feed.innerHTML='';note('“'+topic+'”');
+ const my=++tok;$('#go').hidden=true;$('#stop').hidden=false;setSt('Live',1);
+ if(innerWidth<980)$('.stage').scrollIntoView({behavior:'smooth'});
+ try{
+  for(let i=0;i<n;i++){
+   const k=i%2?'B':'A',x=c[k],o=c[k==='A'?'B':'A'];
+   $('#cnt').textContent=`${i+1} of ${n}`;
+   const t=think(k,x);
+   const text=(await ask(x,`You are ${x.n}, an AI in a live conversation with another AI named ${o.n}. ${x.s} Reply with only your next message, in 1 to 4 sentences, without prefixing your name. Build on what ${o.n} says, add fresh ideas and never repeat yourself.`,hist(k))).trim();
+   if(my!==tok)return;
+   if(!text)throw new Error(x.n+' sent an empty reply. Try again or switch the model.');
+   t.remove();log.push({k,n:x.n,t:text});say(k,x,text);
+   if(i<n-1&&d){await sleep(d);if(my!==tok)return}
+  }
+  setSt('Finished');
+ }catch(e){
+  if(my!==tok)return;
+  const t=$('.typ');if(t)t.remove();
+  note(e.message,1);setSt('Error');
+ }
+ $('#go').hidden=false;$('#stop').hidden=true;
+}
+$('#go').onclick=start;
+$('#stop').onclick=()=>{tok++;const t=$('.typ');if(t)t.remove();setSt('Stopped');$('#go').hidden=false;$('#stop').hidden=true};
+$('#exp').onclick=()=>{if(!log.length)return;const a=el('a');a.href=URL.createObjectURL(new Blob([`# Intellverse\n\n**Topic:** ${topic}\n\n`+log.map(m=>`**${m.n}:** ${m.t}`).join('\n\n')],{type:'text/markdown'}));a.download='intellverse-conversation.md';a.click()};
+</script>
+</body>
+</html>
